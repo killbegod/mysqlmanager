@@ -105,18 +105,29 @@ public class constructer
             {
 			constructer.hostt=host.getText();
                         constructer.namet=name.getText();
-                        constructer.passwordt=String.valueOf(password.getPassword());  
+                        constructer.passwordt=String.valueOf(password.getPassword());
+                        //System.out.println(passwordt);  
                         connmysql=new GetConnection(hostt,"information_schema",namet,passwordt).connect();
 		       // dmd=connmysql.getMetaData();
                        // stmt=connmysql.createStatement();
                        top=new PutInTree(connmysql,"SCHEMA_NAME","SCHEMATA",top).gettreenode(); 
                         left.setViewportView(databasetree);
+                        host.setText(null);
+                        name.setText(null);
+                        password.setText(null);
+                        jfshuru.setVisible(false);
                    
 			}
           catch(SQLException l)
               {
-                System.out.println("database connect fail");
-                l.printStackTrace();
+                if(1045==l.getErrorCode())
+                  {
+                  JOptionPane.showMessageDialog(jfshuru, "用户名或密码错误");
+                 name.setText(null);
+                 password.setText(null);
+                 // l.printStackTrace();
+                 return;
+                  }
               }
 			  catch(IOException io)
 			   {
@@ -143,7 +154,7 @@ public class constructer
        DefaultMutableTreeNode selNode=(DefaultMutableTreeNode)selPath.getLastPathComponent();
        TreeNode[] nodearray=selNode.getPath();
        int an=nodearray.length;
-       System.out.println(an);
+      // System.out.println(an);
        if(e.getClickCount()==2 && nodearray[an-1].isLeaf() && an==3)
        {
        try
