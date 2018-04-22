@@ -20,6 +20,7 @@ public class ResultSetTableModel extends AbstractTableModel
        {
          try
          {
+          // System.out.println(c);     
            return rsmd.getColumnName(c+1);
          }
          catch(SQLException e)

@@ -160,9 +160,9 @@ public class constructer
        try
        { 
         connmysql=new GetConnection(hostt,nodearray[an-2].toString(),namet,passwordt).connect();
-        stmt=connmysql.createStatement();
-        String sqli="select * from "+selNode.toString();
-        rst=stmt.executeQuery(sqli);
+         String sqli="select * from "+selNode.toString();
+         stmt=connmysql.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+          rst=stmt.executeQuery(sqli);
         rstml=new ResultSetTableModel(rst);
 	}
         catch(SQLException l)
